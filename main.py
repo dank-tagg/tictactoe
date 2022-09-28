@@ -2,6 +2,15 @@ from bke import MLAgent, is_winner, start, load, opponent, RandomAgent, train_an
 import random
 import os
 
+'''
+Wat zijn hyperparameters?
+
+Een hyperparameter is een parameter waarvan de waarde de computer stuurt bij het leerproces.
+De andere parameters worden van de training afgeleid.
+In deze programma zijn de hyperparameters alpha en epsilon:
+    alpha: hoe hoger dit getal, hoe geneigd de agent zal zijn om nieuwe kennis te testen.
+    epsilon: hoe hoger dit getal, hoe vaker de agent een nieuwe zet probeert i.p.v. de beste zet.
+'''
 
 class MyAgent(MLAgent):
 
@@ -30,7 +39,7 @@ def play(selection: int):
     os.system('clear')
     if selection == 0:
         # play against friend
-        start()
+	    start()
 
     elif selection == 1:
         # play against good bot
