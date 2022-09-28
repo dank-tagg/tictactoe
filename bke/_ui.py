@@ -9,7 +9,7 @@ def draw_board(board: Board):
     ---+---+---
      {} | {} | {}
     ---+---+---
-     {} | {} | {} 
+     {} | {} | {}
     """.format(*[place for place in board])
     print(textwrap.dedent(board_str))
 
@@ -22,7 +22,6 @@ def draw_start():
 
 def draw_turn(round_nr: int, turn: Symbol):
     print()
-    print(f'Ronde {round_nr}')
     print(f'Beurt: {turn}')
 
 
@@ -41,7 +40,7 @@ def get_player_move(board: Board, player_symbol: Symbol) -> int:
     msg = textwrap.dedent(f"""
         0 1 2
         3 4 5
-        6 7 8    
+        6 7 8
         Plaats een {player_symbol} op een vrij vlak, kies een getal:
         """).strip()
     print(msg)

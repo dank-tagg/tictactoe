@@ -1,7 +1,8 @@
 from collections import defaultdict
 from typing import Dict, Tuple, List
 
-import json
+import jsons
+import os
 import matplotlib.pyplot as plt
 
 from bke._core import start
@@ -54,6 +55,7 @@ def train_and_validate(
         agent.learning = True
         train(agent, trainings)
 
+        os.system('clear')
         print(f'Finished iteration {i}/{iterations}')
 
     return data_agent_wins, data_validation_agent_wins, data_evens, data_epochs
@@ -111,11 +113,11 @@ def train_and_plot(
 def save(agent: MLAgent, path: str):
     if not isinstance(agent, MLAgent):
         raise AttributeError(f'agent must be an MLAgent, got {type(agent)} instead')
-    dumped = json.dumps(agent, verbose=json.Verbosity.WITH_CLASS_INFO)
+    dumped = jsons.dumps(agent, verbose=jsons.Verbosity.WITH_CLASS_INFO)
     with open(path, 'w') as f:
         f.write(dumped)
 
 
 def load(path: str) -> MLAgent:
     with open(path, 'r') as f:
-        return json.loads(f.read())
+        return jsons.loads(f.read())

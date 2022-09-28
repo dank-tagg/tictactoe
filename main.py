@@ -1,9 +1,9 @@
-from bke import *
+from bke import MLAgent, is_winner, start, load, opponent, RandomAgent, train_and_plot
 import random
+import os
 
 
-
-class Bot(MLAgent):
+class MyAgent(MLAgent):
 
     def evaluate(self, board):
         if is_winner(board, self.symbol):
@@ -17,33 +17,46 @@ class Bot(MLAgent):
 
 random.seed(1)
 
-bot = Bot()
+choices = ['Play against friend', 'Play against good bot', 'Play against noob bot', 'Train and validate bot']
 
-
-choices = ['Play against friend', 'Play against good bot', 'Play against noob bot']
-
-
+print('Play a game of tictactoe!')
 for i, choice in enumerate(choices):
     print(f'{i}. {choice}')
 
 ans = input('Please select mode:\n')
 
 
-def start(selection: int):
+def play(selection: int):
+    os.system('clear')
     if selection == 0:
         # play against friend
-        pass
+        start()
 
-    elif selection == 1 or selection == 2:
-        # play against bot
-        pass
+    elif selection == 1:
+        # play against good bot
+        bot = load('MyAgent_30000')
+        players = [bot, None]
+        start(player_x=players[0], player_o=players[1])
+
+    elif selection == 2:
+        # play against bad bot
+        players = [RandomAgent(), None]
+        random.shuffle(players)
+        start(player_x=players[0], player_o=players[1])
 
     elif selection == 3:
-        # train bot
-        pass
+        # train, validate, plot
+        trainings = int(input('How many trainings?\n'))
+        train_and_plot(
+            agent=load('MyAgent_30000'),
+            validation_agent=RandomAgent(),
+            iterations=trainings,
+            trainings=trainings,
+            validations=1000
+        )
 
     else:
         print('Not a valid choice, please check your answer and run again.')
         exit()
 
-start(int(ans))
+play(int(ans))
